@@ -1,6 +1,6 @@
 from os        import system, path, name
+from core      import Log, Run
 from time      import sleep
-from core      import Log
 
 import   tls_client.response
 import   concurrent.futures
@@ -58,7 +58,8 @@ class Main:
             self.proxy_host = None
             self.proxy_port = None
             self.proxy_auth = None
-        
+
+    @Run.Error
     def join(self, code: str, choice: str) -> websocket._core.WebSocket:
         
         if choice == "1":
@@ -157,7 +158,8 @@ class Main:
                 Log.Success(f"Joined room")
             
             return ws
-        
+
+    @Run.Error
     def spam(self, ws: websocket._core.WebSocket, message: str) -> None:
         while True:
             if keyboard.is_pressed('x'):
@@ -167,6 +169,7 @@ class Main:
             Log.Success("Sent Message")
             sleep(1)
 
+@Run.Error
 def config() -> bool:
         
     system("pip install -r requirements.txt")
